@@ -1,0 +1,45 @@
+[package]
+name = "git-guard"
+version = "0.1.0"
+edition = "2021"
+authors = ["Nishant <ndjangra1027@gmail.com>"]
+description = "A lightweight Rust CLI tool to block accidental git push of unwanted files like .idea/, node_modules/, .env, and more"
+license = "MIT"
+repository = "https://github.com/nishujangra/git-guard"
+keywords = ["git", "security", "cli", "prevention", "safety", "guard"]
+categories = ["command-line-utilities", "development-tools", "security"]
+readme = "README.md"
+
+[dependencies]
+clap = { version = "4.4", features = ["derive"] }  # CLI argument parsing
+regex = "1.10"                                     # Pattern matching for file rules
+anyhow = "1.0"                                     # Error handling
+serde = { version = "1.0", features = ["derive"] } # Configuration serialization
+serde_json = "1.0"                                # JSON config files
+colored = "2.0"                                    # Colored terminal output
+thiserror = "1.0"                                 # Custom error types
+
+[dev-dependencies]
+tempfile = "3.8"                                   # Temporary files for tests
+assert_cmd = "2.0"                                 # CLI testing
+predicates = "3.0"                                 # Test assertions
+serial_test = "3.0"                               # Serial test execution
+
+[[bin]]
+name = "git-guard"
+path = "src/main.rs"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true
+
+[profile.dev]
+opt-level = 0
+debug = true
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]
