@@ -376,7 +376,7 @@ Make it a habit to use `git-guard push` instead of `git push` to catch mistakes 
 git status
 
 # See what git-guard would check
-git-guard push origin main --dry-run  # (if implemented)
+git-guard push origin main
 ```
 
 ### 3. Use in Teams
