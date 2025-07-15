@@ -2,7 +2,7 @@
 
 A lightweight Rust CLI tool that prevents you from accidentally pushing unwanted files to your Git repository.
 
-**Stop embarrassing commits before they leave your machine!** 🚫
+**Stop embarrassing commits before they leave your machine!** 
 
 ---
 
