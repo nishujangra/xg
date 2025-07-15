@@ -100,10 +100,35 @@ fn handle_push(remote: String, branch: String, git_args: Vec<String>) -> Result<
         }
     }
     
-    // TODO: Implement actual git push
+    // Execute the actual git push command
+    println!("✅ All checks passed! Executing git push...");
     
-println!("✅ All checks passed! Ready to push.");
-    println!("📝 Would push to {}:{} with args: {:?}", remote, branch, git_args);
+    let mut push_command = std::process::Command::new("git");
+    push_command.arg("push").arg(&remote).arg(&branch);
+    
+    // Add any additional git arguments
+    for arg in git_args {
+        push_command.arg(arg);
+    }
+    
+    // Execute the push command
+    let push_output = push_command.output()
+        .map_err(|e| anyhow::anyhow!("Failed to execute git push: {}", e))?;
+    
+    // Print git's output
+    if !push_output.stdout.is_empty() {
+        print!("{}", String::from_utf8_lossy(&push_output.stdout));
+    }
+    if !push_output.stderr.is_empty() {
+        eprint!("{}", String::from_utf8_lossy(&push_output.stderr));
+    }
+    
+    // Check if push was successful
+    if !push_output.status.success() {
+        return Err(anyhow::anyhow!("Git push failed with exit code: {}", push_output.status).into());
+    }
+    
+    println!("🚀 Successfully pushed to {}:{}", remote, branch);
     
     Ok(())
 }
