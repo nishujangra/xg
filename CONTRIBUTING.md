@@ -1,17 +1,17 @@
-# 🤝 Contributing to git-guard
+# 🤝 Contributing to xg
 
-Thanks for wanting to contribute to `git-guard`! Here's how to get started.
+Thanks for wanting to contribute to `xg`! Here's how to get started.
 
 ## 🚀 Quick Start
 
 1. **Fork & clone** the repo
 2. **Set up development:**
    ```bash
-   git clone https://github.com/nishujangra/git-guard.git
-   cd git-guard
+   git clone https://github.com/nishujangra/xg.git
+   cd xg
    cargo build
    ```
-3. **Pick an issue** from [Issues](https://github.com/nishujangra/git-guard/issues)
+3. **Pick an issue** from [Issues](https://github.com/nishujangra/xg/issues)
 4. **Create a branch:** `git checkout -b feature/your-feature`
 5. **Make changes & test:** `cargo test`
 6. **Submit a PR**

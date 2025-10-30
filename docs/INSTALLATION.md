@@ -1,4 +1,4 @@
-# 🔧 git-guard Installation Guide
+# 🔧 xg Installation Guide
 
 ## 📋 System Requirements
 
@@ -25,7 +25,7 @@
 git clone https://github.com/nishujangra/git-guard.git
 cd git-guard
 
-# Build and install
+# Build and install xg
 cargo install --path .
 ```
 
@@ -41,7 +41,7 @@ cargo build
 
 # Run directly
 cargo run -- --version
-# Or run the binary: ./target/debug/git-guard --version
+# Or run the binary: ./target/debug/xg --version
 ```
 
 ---
@@ -50,21 +50,24 @@ cargo run -- --version
 
 ### Check Installation
 ```bash
-git-guard --version
+xg --version
 ```
 
 Expected output:
 ```
-git-guard 0.1.0
+xg 0.1.0
 ```
 
 ### Test Basic Functionality
 ```bash
 # Show help
-git-guard --help
+xg --help
 
-# Show push command help
-git-guard push --help
+# Test project creation
+xg init --help
+
+# Test git wrapper (if in a git repo)
+xg status
 ```
 
 ---
@@ -79,7 +82,7 @@ git-guard push --help
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 source ~/.cargo/env
 
-# Install git-guard
+# Install xg
 git clone https://github.com/nishujangra/git-guard.git
 cd git-guard
 cargo install --path .
@@ -190,28 +193,29 @@ $env:PATH += ";$env:USERPROFILE\.cargo\bin"
 ### Basic Test
 ```bash
 # Test version
-git-guard --version
+xg --version
 
 # Test help
-git-guard --help
+xg --help
 ```
 
 ### Functionality Test
 ```bash
-# Create a test repository
-mkdir test-repo && cd test-repo
-git init
+# Test project creation
+xg init -lang rust -name "test-project"
+cd test-project
+ls -la  # Should show generated files
 
-# Test git-guard (should show "not in git repository" error)
-git-guard push origin main
-
-# This is expected behavior - it should fail gracefully
+# Test git wrapper in the new project
+xg status
+xg add .
+xg commit -m "Initial commit"
 ```
 
 ### Integration Test
 ```bash
 # In a real git repository
-git-guard push origin main
+xg push origin main
 
 # Should either:
 # - Push successfully (if clean)

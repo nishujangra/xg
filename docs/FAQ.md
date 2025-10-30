@@ -1,71 +1,102 @@
-# ❓ git-guard Frequently Asked Questions
+# ❓ xg Frequently Asked Questions
 
 ## 🤔 General Questions
 
-### What is git-guard?
-`git-guard` is a Rust CLI tool that prevents you from accidentally pushing unwanted files (like `.env`, `node_modules/`, etc.) to your Git repository. It acts as a safety net between your local commits and the remote repository.
+### What is xg?
+`xg` is a complete Git wrapper and project templating tool that enhances your Git workflow with safety features and instant project creation. It serves as both a safety net for Git operations and a powerful project scaffolding system.
 
-### Why should I use git-guard?
-- **Prevents embarrassing commits** of sensitive files like `.env`
-- **Keeps repositories clean** by blocking build artifacts and IDE files
-- **Educational** - teaches you about security best practices
-- **Fast and lightweight** - minimal overhead on your workflow
+### Why should I use xg?
+- **🚀 Project Creation**: Instantly create projects with `xg init` and framework selection
+- **🛡️ Git Safety**: Prevents embarrassing commits of sensitive files like `.env`
+- **🔄 Complete Git Wrapper**: All git commands work with enhanced safety
+- **⚡ Zero Friction**: Drop-in replacement for git with added intelligence
+- **🎯 Interactive Prompts**: Choose frameworks, dependencies, and configurations
 
-### How is it different from .gitignore?
-- **`.gitignore`** prevents files from being staged in the first place
-- **`git-guard`** catches files that were already staged and blocks the push
-- **`git-guard`** is a last line of defense when `.gitignore` fails or is forgotten
+### How is xg different from regular git?
+- **Safety First**: Blocks unwanted files before push
+- **Project Templating**: Creates complete project structures instantly
+- **Enhanced Feedback**: Better error messages and suggestions
+- **Framework Intelligence**: Adapts behavior based on project type
+- **Zero Breaking Changes**: All existing git workflows continue to work
 
-### Is git-guard a replacement for git push?
-No, `git-guard` is a wrapper around `git push` that adds safety checks. It still executes the actual `git push` command when all checks pass.
+### Is xg a replacement for git?
+No, `xg` enhances git without replacing it. It acts as a wrapper that adds safety features and project templating while maintaining full git compatibility.
 
 ---
 
 ## 🚀 Installation & Setup
 
-### How do I install git-guard?
+### How do I install xg?
 ```bash
 git clone https://github.com/nishujangra/git-guard.git
 cd git-guard
 cargo install --path .
 ```
 
-### I get "git-guard: command not found" after installation
+### I get "xg: command not found" after installation
 Add `$HOME/.cargo/bin` to your PATH:
 ```bash
 export PATH="$HOME/.cargo/bin:$PATH"
 ```
 Add this line to your `~/.bashrc` or `~/.zshrc` for persistence.
 
-### Can I install git-guard without Rust?
-No, `git-guard` is written in Rust and requires Rust to compile. You can install Rust from [rustup.rs](https://rustup.rs/).
+### Can I install xg without Rust?
+No, `xg` is written in Rust and requires Rust to compile. You can install Rust from [rustup.rs](https://rustup.rs/).
 
-### Does git-guard work on Windows?
+### Does xg work on Windows?
 Yes! It works on Windows, macOS, and Linux. On Windows, we recommend using WSL (Windows Subsystem for Linux) for the best experience.
+
+### How do I use xg as my default git command?
+```bash
+# Add to your ~/.bashrc or ~/.zshrc
+echo 'alias git="xg"' >> ~/.bashrc
+source ~/.bashrc
+
+# Now 'git' commands automatically use xg
+git init -lang rust -name "myproject"  # Works!
+```
 
 ---
 
 ## 🔧 Usage
 
-### How do I use git-guard?
-Instead of `git push origin main`, use:
+### How do I create a new project with xg?
 ```bash
-git-guard push origin main
+# Interactive project creation
+xg init -lang golang -name "my-api"
+# Prompts: Which framework? (echo/gin/fiber)
+
+# Direct framework selection
+xg init -lang javascript -name "my-app" -f react
 ```
 
-### Can I use git-guard with force push?
-Yes! `git-guard` passes through all git arguments:
+### How do I use xg for Git operations?
 ```bash
-git-guard push origin main --force
+# Option 1: Use xg directly
+xg status
+xg add .
+xg commit -m "feat: add new feature"
+xg push origin main
+
+# Option 2: Replace git globally
+alias git="xg"
+git push origin main  # Now uses xg automatically
 ```
 
-### Does git-guard work with all git remotes?
-Yes, `git-guard` works with any git remote (GitHub, GitLab, Bitbucket, etc.).
-
-### Can I use git-guard in CI/CD pipelines?
-Yes! `git-guard` can be used in CI/CD to prevent unwanted files from being pushed:
+### Can I use xg with force push?
+Yes! `xg` passes through all git arguments:
 ```bash
-git-guard push origin main || {
+xg push origin main --force
+xg push origin main --tags
+```
+
+### Does xg work with all git remotes?
+Yes, `xg` works with any git remote (GitHub, GitLab, Bitbucket, etc.).
+
+### Can I use xg in CI/CD pipelines?
+Yes! `xg` can be used in CI/CD to prevent unwanted files and ensure project consistency:
+```bash
+xg push origin main || {
   echo "Push blocked due to unwanted files"
   exit 1
 }
@@ -73,9 +104,40 @@ git-guard push origin main || {
 
 ---
 
+## 🎯 Project Templating
+
+### What languages and frameworks does xg support?
+xg supports multiple languages with various frameworks:
+
+**Go**: Echo, Gin, Fiber, Chi, Standard Library
+**JavaScript/TypeScript**: React, Vue, Svelte, Node.js, Express, Fastify
+**Rust**: CLI tools, libraries, web apps, API servers
+**Python**: FastAPI, Flask, Django, data science stacks
+
+### Can I customize the generated projects?
+Yes! xg templates include:
+- **Configuration files** (.env, docker-compose.yml)
+- **Build scripts** (Makefile, package.json scripts)
+- **Documentation** (README.md)
+- **Testing setup** (basic test files)
+
+### How do I add a new framework to xg?
+You can contribute new templates by:
+1. Creating template files in the `templates/` directory
+2. Adding configuration metadata
+3. Submitting a pull request
+
+### Does xg generate Docker files?
+Yes! Most templates include:
+- **Dockerfile** for containerization
+- **docker-compose.yml** for local development
+- **Multi-stage builds** for optimization
+
+---
+
 ## 🚫 File Blocking
 
-### What files does git-guard block?
+### What files does xg block?
 Currently blocks:
 - `.env` - Environment variables & secrets
 - `node_modules/` - Node.js dependencies
@@ -87,7 +149,7 @@ Currently blocks:
 ### Can I customize which files are blocked?
 Not yet, but this feature is planned for future versions. For now, the patterns are hardcoded to cover the most common unwanted files.
 
-### Why does git-guard block `.env` files?
+### Why does xg block `.env` files?
 `.env` files typically contain sensitive information like:
 - Database passwords
 - API keys
@@ -102,14 +164,14 @@ If you have a legitimate reason to commit a blocked file:
 2. **Use a different approach** (like environment variables)
 3. **Wait for configuration support** in future versions
 
-### Does git-guard check unstaged files?
-No, `git-guard` only checks staged files (files that have been `git add`ed). This is intentional because only staged files will be pushed.
+### Does xg check unstaged files?
+No, `xg` only checks staged files (files that have been `git add`ed). This is intentional because only staged files will be pushed.
 
 ---
 
 ## ⚠️ HTTPS Warnings
 
-### Why does git-guard warn about HTTPS remotes?
+### Why does xg warn about HTTPS remotes?
 HTTPS remotes require you to enter your password/token on every push, which is:
 - **Less secure** than SSH keys
 - **More inconvenient** for frequent pushes
@@ -118,13 +180,13 @@ HTTPS remotes require you to enter your password/token on every push, which is:
 ### How do I switch from HTTPS to SSH?
 ```bash
 # Check current remote
-git remote -v
+xg remote -v
 
 # Change to SSH
-git remote set-url origin git@github.com:user/repo.git
+xg remote set-url origin git@github.com:user/repo.git
 
 # Verify the change
-git remote -v
+xg remote -v
 ```
 
 ### Can I ignore the HTTPS warning?
@@ -180,46 +242,33 @@ git push origin main  # Test without git-guard
 
 ## 🔄 Workflow Integration
 
-### How do I make git-guard the default for git push?
-The best way is to use git-guard as a wrapper around your `git` command. This makes it invisible to your workflow:
+### How do I make xg my default git command?
+The best way is to alias `git` to `xg` globally:
 
 ```bash
-# Create the wrapper script
-cat > ~/bin/git-wrapper << 'EOF'
-#!/bin/bash
-if [[ "$1" == "push" ]]; then
-  shift
-  git-guard push "$@"
-else
-  command git "$@"
-fi
-EOF
-
-# Make it executable
-chmod +x ~/bin/git-wrapper
-
-# Add to your shell config (~/.bashrc, ~/.zshrc, etc.)
-echo 'alias git="git-wrapper"' >> ~/.bashrc
+# Add to your ~/.bashrc or ~/.zshrc
+echo 'alias git="xg"' >> ~/.bashrc
 source ~/.bashrc
 ```
 
-**Now you can use git normally:**
+**Now you can use git normally with enhanced features:**
 ```bash
-git push origin main  # Automatically uses git-guard!
-git status           # Works normally
-git commit -m "msg"  # Works normally
+git init -lang golang -name "my-api"  # Project creation!
+git push origin main                  # Safe push with blocking
+git status                           # Enhanced status
+git commit -m "feat: add feature"    # Normal commits
 ```
 
-**Why use the wrapper approach?**
-- **Zero friction** - No need to remember to use `git-guard push`
-- **Automatic protection** - Every push is checked without thinking about it
+**Why use the alias approach?**
+- **Zero friction** - All git commands work identically
+- **Enhanced features** - Access to `xg init` and safety features
 - **Team adoption** - Easy to recommend to team members
-- **Habit formation** - Becomes part of your normal git workflow
+- **Habit formation** - Becomes part of your normal workflow
 
-### Can I use git-guard with git aliases?
+### Can I use xg with git aliases?
 Yes! Add to your git config:
 ```bash
-git config --global alias.safepush '!git-guard push'
+git config --global alias.safepush '!xg push'
 ```
 
 Then use:
@@ -227,64 +276,103 @@ Then use:
 git safepush origin main
 ```
 
-### Does git-guard work with git hooks?
-Yes, you can use `git-guard` in pre-push hooks, but it's usually not necessary since `git-guard` already provides the same protection.
+### Does xg work with git hooks?
+Yes, you can use `xg` in pre-push hooks, but it's usually not necessary since `xg` already provides the same protection when used as a git wrapper.
 
 ---
 
-## 🔒 Security
+## 🚀 Project Creation Workflows
 
-### Is git-guard secure?
-Yes, `git-guard` is:
-- **Open source** - code can be audited
-- **Written in Rust** - memory safe and secure
-- **Minimal dependencies** - reduces attack surface
-- **Local only** - doesn't send data anywhere
+### What's the typical workflow for starting a new project?
+```bash
+# 1. Create the project
+xg init -lang golang -name "user-service"
 
-### Does git-guard send my data anywhere?
-No, `git-guard` runs entirely locally and doesn't send any data to external services.
+# 2. Navigate to the project
+cd user-service
 
-### Can git-guard access my git credentials?
-No, `git-guard` only reads git status and executes git commands. It doesn't access or store any credentials.
+# 3. Install dependencies
+go mod tidy
 
----
+# 4. Run the project
+go run main.go
 
-## 🚀 Performance
+# 5. Make it a git repository (if not already)
+xg add .
+xg commit -m "Initial commit"
+```
 
-### How fast is git-guard?
-`git-guard` is very fast:
-- **Compilation**: ~5-10 seconds (one-time)
-- **Execution**: ~100-200ms per push
-- **Memory usage**: ~5-10MB
+### Can I create projects in existing directories?
+No, `xg init` creates new directories. For existing projects, use regular git commands with xg as a wrapper.
 
-### Does git-guard slow down my workflow?
-Minimally. The overhead is typically less than 200ms, which is negligible compared to the time saved by preventing unwanted commits.
+### How do I customize generated projects?
+Currently, xg generates standardized templates. Future versions will support:
+- Custom templates
+- Configuration overrides
+- Template variables
+
+### What if I don't like the generated structure?
+You can modify the generated files as needed. The templates provide a solid starting point that you can customize for your needs.
 
 ---
 
 ## 🔮 Future Features
 
-### Will git-guard support custom patterns?
-Yes, this is planned for future versions. You'll be able to configure your own blocked file patterns.
+### Will xg support custom templates?
+Yes, this is planned for future versions. You'll be able to create and share custom project templates.
 
-### Will git-guard support different rule sets per project?
-Yes, this is planned. You'll be able to have project-specific blocking rules.
+### Will xg support more languages?
+Yes! Planned languages include:
+- Java (Spring Boot, Quarkus)
+- C# (.NET)
+- PHP (Laravel, Symfony)
+- Ruby (Rails)
+- And more based on community demand
 
-### Will git-guard support other git commands?
-Possibly. We're considering support for `git commit` and other commands that could benefit from file checking.
+### Will xg have a GUI?
+No plans for a GUI. `xg` is designed to be a powerful CLI tool that integrates seamlessly with existing workflows.
 
-### Will git-guard have a GUI?
-No plans for a GUI. `git-guard` is designed to be a lightweight CLI tool that integrates seamlessly with existing workflows.
+---
+
+## 🔒 Security
+
+### Is xg secure?
+Yes, `xg` is:
+- **Open source** - code can be audited
+- **Written in Rust** - memory safe and secure
+- **Minimal dependencies** - reduces attack surface
+- **Local only** - doesn't send data anywhere
+
+### Does xg send my data anywhere?
+No, `xg` runs entirely locally and doesn't send any data to external services.
+
+### Can xg access my git credentials?
+No, `xg` only reads git status and executes git commands. It doesn't access or store any credentials.
+
+---
+
+## 🚀 Performance
+
+### How fast is xg?
+`xg` is very fast:
+- **Compilation**: ~5-10 seconds (one-time)
+- **Execution**: ~100-200ms per command
+- **Project creation**: ~2-5 seconds for typical projects
+- **Memory usage**: ~5-10MB
+
+### Does xg slow down my workflow?
+Minimally. The overhead is typically less than 200ms, which is negligible compared to the time saved by preventing unwanted commits and speeding up project setup.
 
 ---
 
 ## 🤝 Contributing
 
-### How can I contribute to git-guard?
+### How can I contribute to xg?
 1. **Report bugs** - Open an issue on GitHub
-2. **Suggest features** - Create a feature request
+2. **Suggest features** - Create a feature request (templating, new languages, etc.)
 3. **Submit code** - Fork the repo and create a pull request
 4. **Improve docs** - Help make the documentation better
+5. **Add templates** - Create new language/framework templates
 
 ### What should I include in a bug report?
 - Operating system and version
@@ -294,8 +382,12 @@ No plans for a GUI. `git-guard` is designed to be a lightweight CLI tool that in
 - Expected vs actual behavior
 - Error messages (if any)
 
-### Can I add new blocked file patterns?
-Yes! You can submit a pull request to add new patterns to the `DEFAULT_BLOCKED_PATTERNS` in `src/rules.rs`.
+### Can I add new templates or languages?
+Yes! You can contribute by:
+- Adding new language templates in the `templates/` directory
+- Creating framework variations for existing languages
+- Improving existing templates
+- Adding new blocked file patterns in `src/rules.rs`
 
 ---
 
