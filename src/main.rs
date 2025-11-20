@@ -3,6 +3,8 @@ use clap::Parser;
 pub mod cli;
 pub mod commands;
 pub mod generators;
+pub mod utils;
+pub mod writters;
 
 use crate::cli::Cli;
 
