@@ -2,10 +2,9 @@ use clap::Parser;
 
 pub mod cli;
 pub mod commands;
-
+pub mod generators;
 
 use crate::cli::Cli;
-
 
 fn main() {
     let cli = Cli::parse();

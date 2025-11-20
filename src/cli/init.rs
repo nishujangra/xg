@@ -19,7 +19,7 @@ pub struct InitArgs {
 pub enum Languages {
     #[value(alias = "golang")]
     Go,
-    Rust
+    Rust,
 }
 
 #[derive(Copy, Clone, Debug, ValueEnum)]
