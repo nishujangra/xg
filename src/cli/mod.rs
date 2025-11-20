@@ -1,7 +1,7 @@
 pub mod init;
 
-use clap::{Parser, Subcommand};
 use crate::cli::init::InitArgs;
+use clap::{Parser, Subcommand};
 
 #[derive(Parser, Debug)]
 #[command(name = "xg")]

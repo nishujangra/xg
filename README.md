@@ -1,150 +1,94 @@
-# 🚀 xg - Safe Git with superpowers
+# xg — Safe Git with Supercharged Project Starters
 
-**xg (ex-gee)** is a complete Git wrapper and project templating tool that combines the power of Git with intelligent project scaffolding and safety features.
+xg (pronounced **ex-gee**) is an opinionated developer tool that will eventually give Git new safety rails and bundle a powerful project templating system. Think of it as Git’s modern cousin: familiar commands, but with smart defaults and batteries included.
 
-**Like neovim is to vim, xg is to git - upgraded, modern, and feature-rich!**
-
-`or use as alias git = xg`
+> **Current focus**: building the Go project templating flow before layering in the Git wrapper and release tooling.
 
 ---
 
-## 🚀 Quick About the Project
+## Why xg?
 
-`xg` is the next evolution of Git tooling. It serves as:
-
-1. **Complete Git Wrapper** - All git commands work through xg with enhanced safety
-2. **Project Templating Engine** - Create new projects with `xg init` and interactive framework selection
-3. **Safety Net** - Prevents accidental pushes of sensitive files and build artifacts
-
-### ⭐ Key Features
-
-- **🚀 Project Creation**: `xg init -lang golang -name "myproject"` with framework selection
-- **🛡️ Git Safety**: Blocks unwanted files (`.env`, `node_modules/`, build artifacts)
-- **🔄 Full Git Wrapper**: All git commands work through xg (`xg status`, `xg commit`, etc.)
-- **🎯 Interactive Prompts**: Choose frameworks, dependencies, and configurations
-- **⚡ Zero Friction**: Drop-in replacement for git commands
-
-### ⭐ Recommended: Replace Git with xg
-
-Make xg your default git command for enhanced safety and productivity:
-
-```bash
-# Add to your shell config (~/.bashrc, ~/.zshrc, etc.)
-echo 'alias git="xg"' >> ~/.bashrc
-source ~/.bashrc
-```
-
-**Now use Git normally with enhanced features:**
-```bash
-git push origin main     # Automatically protected by xg!
-git status              # Enhanced status with safety indicators
-git commit -m "msg"     # Works normally
-git log                 # Works normally
-git init -lang rust -name "myproject"  # Create new project with templates!
-```
-
-**Benefits of using xg as git:**
-- ✅ **Zero friction** - All git commands work exactly the same
-- ✅ **Automatic protection** - Every push is safety-checked
-- ✅ **Project templating** - Access to `git init` with frameworks
-- ✅ **Enhanced feedback** - Better error messages and suggestions
-
-### 🔄 Usage Modes
-
-**Project Creation:**
-```bash
-xg init -lang golang -name "api-server"
-# Interactive: Which framework? (echo/gin/fiber)
-# Creates complete project structure with chosen framework
-```
-
-**Git Operations (all work normally):**
-```bash
-xg status              # Shows status
-xg add .               # Stages files
-xg commit -m "feat: add new feature"  # Commits
-xg push origin main    # Safe push with file blocking
-xg pull               # Normal pull
-xg branch             # Branch management
-```
-
-**Direct Usage:**
-- **Safe pushing:** `xg push origin main`
-- **CI/CD integration:** Use in deployment pipelines
-- **Team adoption:** Share with your team as the new git standard
+- **Safe-by-default Git** – catch `.env`, build artifacts, or IDE clutter before they sneak into a push.
+- **Language-aware templates** – spin up ready-to-ship projects with framework-specific structure, configs, and docs.
+- **Zero-friction adoption** – alias `git` to `xg` when you want the guard rails, and fall back to plain Git whenever you need.
 
 ---
 
-## 📚 Documentation
+## Status: Pre-Alpha
 
-For full usage, installation, and troubleshooting, see:
-- [📖 Complete Usage Guide](docs/USAGE.md)
-- [🚀 Project Initialization Guide](docs/INIT.md)
-- [🔧 Installation Guide](docs/INSTALLATION.md)
-- [🎯 Supported Templates](docs/TEMPLATES.md)
-- [❓ FAQ](docs/FAQ.md)
+| Track | What exists today | What’s next |
+| --- | --- | --- |
+| Project generator | `xg init` CLI skeleton + Go templates directory | Plug generator logic into CLI, add prompts, write tests |
+| Git experience | Planned | Pass-through shim with safety checks after Go templates land |
+| Releases | Planned | Package binaries + docs after Git wrapper milestone |
 
----
+If you want to try the current CLI skeleton anyway:
 
-## 🚫 Safety Features
-
-`xg` includes intelligent file blocking to prevent accidental commits of sensitive or unwanted files:
-
-| File/Pattern    | What it is                    | Why it's blocked                        |
-|-----------------|-------------------------------|-----------------------------------------|
-| `.env`          | Environment variables & secrets| Contains sensitive data like passwords  |
-| `node_modules/` | Node.js dependencies          | Too large, should be installed via npm  |
-| `.idea/`        | IntelliJ IDEA settings        | IDE-specific, not needed in repo        |
-| `target/`       | Rust build artifacts          | Generated files, should be built locally|
-| `.DS_Store`     | macOS system files            | OS-specific, not needed                 |
-| `.vscode/`      | VS Code settings              | IDE-specific, not needed in repo        |
-
-> 💡 **Smart Protection**: xg analyzes your project type and applies appropriate blocking rules. If you accidentally stage these files, xg will catch them and guide you on how to fix it.
-
-## 🎯 Project Templates
-
-xg supports instant project creation for multiple languages and frameworks:
-
-### Quick Examples
 ```bash
-# Go API Server
-xg init -lang golang -name "api-server"
-# Prompts: Framework? (echo/gin/fiber) -> Creates complete project
-
-# React Application
-xg init -lang javascript -name "react-app"
-# Prompts: Framework? (react/vue/svelte) -> Sets up with Vite/Webpack
-
-# Rust CLI Tool
-xg init -lang rust -name "cli-tool"
-# Creates Cargo.toml, src/main.rs, and basic structure
+cargo run -- init \
+  --lang go \
+  --project awesome-api \
+  --rest-framework gin
 ```
 
-### Supported Languages
-- **Go**: echo, gin, fiber frameworks
-- **JavaScript/TypeScript**: React, Vue, Svelte, Node.js
-- **Rust**: CLI tools, libraries, web apps
-- **Python**: FastAPI, Flask, Django
-- **And more coming soon!**
-
-## 📜 License
-
-MIT
+Right now this only echoes your choices; real file generation will be wired up as part of the first milestone.
 
 ---
 
-## 💡 Author & Community
+## Go Template Milestone (In Progress)
 
-Made with ❤️ by [Nishant](https://github.com/nishujangra)
+Goal: generate production-ready Go REST APIs out of the box, starting with **Gin** and **Echo**:
 
-### 🤝 Contributing
-We welcome contributions! Whether it's:
-- Adding new language templates
-- Improving existing templates
-- Enhancing safety features
-- Documentation improvements
+- Scaffold idiomatic folder layout (cmd/, internal/, pkg/, configs/)
+- Drop framework-specific bootstrap code and health handlers
+- Write `.gitignore`, `README`, Makefile, and Docker bits
+- Offer optional components (PostgreSQL, Redis, OpenAPI, CI workflow)
+- Back templates with tests to ensure regenerated projects compile
 
-Check out our [Contributing Guide](CONTRIBUTING.md) to get started.
+Deliverables ship behind `xg init` so that is the first command worth adopting.
 
-### 🌟 Star the Project
-If xg helps your workflow, please give it a star on GitHub! ⭐
+---
+
+## Upcoming Roadmap
+
+1. **Go Project Template Generation** – interactive prompts, template registry, and generator engine (current milestone).
+2. **Git Wrapper & Safety Layer** – pass every git command through xg, add staged file scanner, and block risky pushes by default.
+3. **First Release** – package binaries, publish install docs, and cut v0.1.0 once Go templates + Git safety are stable.
+4. **Other App Templates** – expand into Rust, JavaScript/TypeScript, Python, etc., after the first release proves the workflow.
+
+See `Planning.md` for the full execution breakdown.
+
+---
+
+## Development Setup
+
+```bash
+git clone https://github.com/<you>/xg
+cd xg
+cargo run -- init --help
+```
+
+Useful directories:
+
+- `src/cli` – clap-powered argument parsing and subcommand routing
+- `src/commands` – handlers for each command (`init` today)
+- `templates/go/*` – language/framework blueprints under active development
+- `docs/` – supporting documentation (usage, templates, FAQ, etc.)
+
+---
+
+## Contributing
+
+Contributions are welcome even this early. Good first issues:
+
+- Add Go template files (see `templates/go`)
+- Flesh out generator logic in `src/generators`
+- Document template conventions in `docs/TEMPLATES.md`
+
+Before opening a PR, skim [CONTRIBUTING.md](CONTRIBUTING.md) and make sure `cargo fmt && cargo clippy && cargo test` all pass.
+
+---
+
+## License
+
+MIT © [Nishant](https://github.com/nishujangra)
