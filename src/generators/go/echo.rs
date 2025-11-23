@@ -88,7 +88,7 @@ package main
 
 import (
     "log"
-    "github.com/gin-gonic/gin"
+	"github.com/labstack/echo/v4"
 )
 
 func main() {
@@ -97,17 +97,15 @@ func main() {
 		log.Fatalf("Failed to load configuration: %v", err)
 	}
 
+    // Echo Router
+    e := echo.New()
+
     if cfg.Environment == "development" {
-		gin.SetMode(gin.DebugMode)
-	} else {
-		gin.SetMode(gin.ReleaseMode)
+		e.Debug = true
 	}
 
-    // Gin Router
-	router := gin.Default()
-
     // Run Router
-    router.Run(cfg.GetServerAddress())
+    e.Logger.Fatal(e.Start(cfg.GetServerAddress()))
 }
     "#;
 

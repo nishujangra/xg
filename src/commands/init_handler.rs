@@ -12,9 +12,7 @@ pub fn handle_init(args: InitArgs) {
                     go_lang::gin::init(&args.project);
                 },
                 RestFramework::Echo => {
-                    println!("Language: {:?}", args.lang);
-                    println!("Project Name: {}", args.project);
-                    println!("REST Framework: {:?}", args.rest_framework);
+                    go_lang::echo::init(&args.project);
                 }
             }
         }
