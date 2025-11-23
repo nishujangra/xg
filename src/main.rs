@@ -12,7 +12,7 @@ fn main() {
     let cli = Cli::parse();
 
     match cli.command {
-        cli::Commands::Init(args) => {
+        cli::Commands::CreateGoApp(args) => {
             commands::init_handler::handle_init(args);
         }
     }
