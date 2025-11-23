@@ -1,16 +1,16 @@
-# 📖 xg Complete Usage Guide
+# xg Complete Usage Guide
 
-## 🚀 Quick Installation
+## Quick Installation
 
 ### Prerequisites
-- **Rust** (install from [rustup.rs](https://rustup.rs/))
-- **Git** (should already be installed)
+- Rust (install from [rustup.rs](https://rustup.rs/))
+- Git (should already be installed)
 
 ### Install xg
 ```bash
 # Clone the repository
-git clone https://github.com/nishujangra/git-guard.git
-cd git-guard
+git clone https://github.com/nishujangra/xg
+cd xg
 
 # Install manually
 cargo install --path .
@@ -47,26 +47,17 @@ source ~/.bashrc
 git --version  # Shows xg version
 ```
 
----
-
-## 📋 Basic Usage
+## Basic Usage
 
 ### Two Ways to Use xg
 
-#### 1. 🎯 Project Creation (New Projects)
+#### 1. Project Creation (New Projects)
 ```bash
 # Create a new Go API server
-xg init -lang golang -name "my-api"
-# Interactive: Choose framework (echo/gin/fiber)
-
-# Create a React application
-xg init -lang javascript -name "my-app"
-
-# Create a Rust CLI tool
-xg init -lang rust -name "my-tool"
+xg create-go-app --project "my-api" --rest-framework gin
 ```
 
-#### 2. 🔄 Git Wrapper (Existing Projects)
+#### 2. Git Wrapper (Existing Projects)
 ```bash
 # Option A: Replace git globally (recommended)
 echo 'alias git="xg"' >> ~/.bashrc
@@ -76,7 +67,7 @@ source ~/.bashrc
 git status              # Enhanced status
 git add .               # Normal staging
 git commit -m "feat: add new feature"  # Normal commits
-git push origin main    # Safe push with file blocking
+git push origin main    # SAFE push with file blocking
 
 # Option B: Use xg directly
 xg status
@@ -85,47 +76,37 @@ xg commit -m "feat: add new feature"
 xg push origin main
 ```
 
----
+## Project Creation Commands
 
-## 🚀 Project Creation Commands
+### xg create-go-app
+Create new Go projects with framework-specific templates.
 
-### xg init
-Create new projects with intelligent templating.
-
-**Syntax:**
+Syntax:
 ```bash
-xg init -l <language> -n <project-name> [options]
+xg create-go-app --project <NAME> --rest-framework <FRAMEWORK>
 ```
 
-**Examples:**
+Examples:
 ```bash
-# Interactive framework selection
-xg init -lang golang -name "api-server"
+# Create a Gin-based API
+xg create-go-app --project "api-server" --rest-framework gin
 
-# Pre-select framework
-xg init -lang javascript -name "dashboard" -f react
-
-# Skip interactive prompts
-xg init -lang rust -name "cli-tool" --no-git
+# Create an Echo-based API
+xg create-go-app --project "microservice" --rest-framework echo
 ```
 
-**Supported Languages:**
-- `golang` - Go (echo, gin, fiber, chi, stdlib)
-- `javascript` - JavaScript (react, vue, svelte, node)
-- `typescript` - TypeScript (react, vue, node, nestjs)
-- `rust` - Rust (cli, lib, web-app, api)
-- `python` - Python (fastapi, flask, django, data-science)
+Supported frameworks:
+- `gin` - Full-featured web framework
+- `echo` - High-performance web framework
 
----
-
-## 🔄 Git Wrapper Commands
+## Git Wrapper Commands
 
 xg supports all standard git commands with enhanced safety features.
 
 ### Core Git Commands
 xg supports all standard git commands transparently:
 
-**Repository Operations:**
+Repository Operations:
 ```bash
 xg init                    # Create repository
 xg clone <url>            # Clone repository
@@ -134,7 +115,7 @@ xg log                     # Show commit history
 xg diff                    # Show changes
 ```
 
-**Staging & Committing:**
+Staging & Committing:
 ```bash
 xg add <files>            # Stage files
 xg add .                  # Stage all changes
@@ -142,7 +123,7 @@ xg commit -m "message"    # Commit staged changes
 xg commit -am "message"   # Add & commit all changes
 ```
 
-**Branching & Merging:**
+Branching & Merging:
 ```bash
 xg branch                  # List branches
 xg branch <name>          # Create branch
@@ -151,7 +132,7 @@ xg merge <branch>         # Merge branch
 xg rebase <branch>        # Rebase branch
 ```
 
-**Remote Operations:**
+Remote Operations:
 ```bash
 xg remote -v              # List remotes
 xg fetch                  # Fetch from remote
@@ -162,12 +143,12 @@ xg push origin main --force  # Force push (with checks)
 
 ### Enhanced Safety Features
 
-**Safe Push Command:**
+Safe Push Command:
 ```bash
 xg push <remote> <branch> [options]
 ```
 
-**Examples:**
+Examples:
 ```bash
 # Basic safe push
 xg push origin main
@@ -182,131 +163,67 @@ xg push origin main --tags
 xg push origin feature-branch
 ```
 
----
-
-## 🛡️ Safety Features
+## Safety Features
 
 ### Enhanced Git Operations
 When using xg as a git wrapper, it provides additional safety and intelligence:
 
-### 1. **Smart File Blocking (Push Protection)**
-- **Automatic Detection**: Scans staged files before push
-- **Comprehensive Blocking**: Prevents unwanted files (`.env`, `node_modules/`, build artifacts)
-- **Clear Feedback**: Shows exactly which files are blocked and why
-- **Recovery Guidance**: Provides commands to fix the issue
+### 1. Smart File Blocking (Push Protection)
+- Automatic Detection: Scans staged files before push
+- Comprehensive Blocking: Prevents unwanted files (`.env`, `node_modules/`, build artifacts)
+- Clear Feedback: Shows exactly which files are blocked and why
+- Recovery Guidance: Provides commands to fix the issue
 
-### 2. **Security Enhancements**
-- **HTTPS Warnings**: Recommends SSH for secure authentication
-- **Remote Validation**: Checks remote configurations
-- **Credential Safety**: Never stores or exposes credentials
+### 2. Security Enhancements
+- HTTPS Warnings: Recommends SSH for secure authentication
+- Remote Validation: Checks remote configurations
+- Credential Safety: Never stores or exposes credentials
 
-### 3. **Intelligent Status Display**
-- **Enhanced Output**: More informative than standard git status
-- **Safety Indicators**: Shows potential issues before they become problems
-- **Suggestion System**: Provides helpful next steps
+### 3. Intelligent Status Display
+- Enhanced Output: More informative than standard git status
+- Safety Indicators: Shows potential issues before they become problems
+- Suggestion System: Provides helpful next steps
 
-### 4. **Transparent Git Compatibility**
-- **Full Command Support**: All git commands work identically
-- **Zero Breaking Changes**: Existing git workflows continue to work
-- **Performance**: Minimal overhead (typically <200ms)
+### 4. Transparent Git Compatibility
+- Full Command Support: All git commands work identically
+- Zero Breaking Changes: Existing git workflows continue to work
+- Performance: Minimal overhead (typically <200ms)
 
----
+## Example Outputs
 
-## 📊 Example Outputs
-
-### 🎯 Project Creation Example
+### Project Creation Example
 ```bash
-$ xg init -lang golang -name "api-server"
+$ xg create-go-app --project "api-server" --rest-framework gin
 
-🚀 Creating new Go project: api-server
-📁 Directory: ./api-server/
-
-🎯 Which framework would you like to use for your Go API server?
-
-1. Echo   - High performance, minimalist Go web framework
-2. Gin    - The fastest full-featured web framework for Go
-3. Fiber  - Express-inspired web framework built on Fasthttp
-4. Chi    - Lightweight, idiomatic and composable router
-
-Enter your choice (1-4) [default: 2]: 2
-
-✅ Selected: Gin
-🔧 Generating project structure...
-📦 Creating go.mod, main.go, handlers, middleware...
-🐳 Adding Dockerfile and docker-compose.yml...
-📝 Setting up README.md and .gitignore...
-🔐 Creating .env.example...
-🌱 Initializing git repository...
-🎉 Project 'api-server' created successfully!
-
-Next steps:
-  cd api-server
-  go mod tidy
-  go run main.go
+Creating api-server directory!!!
+api-server Directory created successfully
+Created "api-server/cmd"
+Created "api-server/config"
+Created "api-server/internal/config"
+Using module name: github.com/username/api-server
+Using module name: github.com/username/api-server
 ```
 
-### ✅ Successful Push (Clean Repository)
+### Successful Push (Clean Repository)
 ```bash
 $ xg push origin main
-🚀 xg: Checking staged files before push...
-📤 Target: origin -> main
-📋 Found 0 staged files
-✅ All checks passed! Executing git push...
-🚀 Successfully pushed to origin:main
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Writing objects: 100% (3/3), 1.2 KiB | 1.2 MiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+To github.com:user/repo.git
+   abc123..def456  main -> main
 ```
 
-### ✅ Successful Push (With Staged Files)
+### Blocked Push (Unwanted Files)
 ```bash
 $ xg push origin main
-🚀 xg: Checking staged files before push...
-📤 Target: origin -> main
-📋 Found 2 staged files
-📁 Staged files:
-   - src/main.rs
-   - README.md
-✅ All checks passed! Executing git push...
-🚀 Successfully pushed to origin:main
+To github.com:user/repo.git
+ ! [remote rejected] main -> main (push declined)
+error: failed to push some refs to 'github.com:user/repo.git'
 ```
 
-### 🚫 Blocked Push (Unwanted Files)
-```bash
-$ xg push origin main
-🚀 xg: Checking staged files before push...
-📤 Target: origin -> main
-📋 Found 3 staged files
-📁 Staged files:
-   - src/main.rs
-   - .env
-   - node_modules/lodash/index.js
-
-🚫 Push blocked! Found 2 blocked file(s):
-   ❌ .env (blocked by pattern: .env)
-   ❌ node_modules/lodash/index.js (blocked by pattern: node_modules/)
-
-💡 To fix this:
-   1. Remove blocked files: xg rm --cached <file>
-   2. Add to .gitignore to prevent future staging
-   3. Commit the changes
-Error: Push blocked due to disallowed files
-```
-
-### ⚠️ HTTPS Warning
-```bash
-$ xg push origin main
-🚀 xg: Checking staged files before push...
-📤 Target: origin -> main
-📋 Found 0 staged files
-⚠️  You're using an HTTPS remote: https://github.com/user/repo.git
-👉 It's recommended to use SSH for pushing to Git remotes.
-   Example: git@github.com:user/repo.git
-   See: https://docs.github.com/en/authentication/connecting-to-github-with-ssh
-✅ All checks passed! Executing git push...
-🚀 Successfully pushed to origin:main
-```
-
----
-
-## 🚫 Safety File Blocking
+## File Blocking
 
 | File/Pattern | Description | Why Blocked |
 |--------------|-------------|-------------|
@@ -317,16 +234,14 @@ $ xg push origin main
 | `.DS_Store` | macOS system files | OS-specific, not needed |
 | `.vscode/` | VS Code settings | IDE-specific, not needed in repo |
 
-> 💡 **Smart Blocking**: xg adapts blocking rules based on your project type for optimal safety.
+Smart Blocking: xg adapts blocking rules based on your project type for optimal safety.
 
----
-
-## 🔧 Advanced Usage
+## Advanced Usage
 
 ### Using with Git Aliases
 Add to your `.bashrc` or `.zshrc`:
 ```bash
-alias gpush='git-guard push'
+alias gpush='xg push'
 ```
 
 Then use:
@@ -335,20 +250,18 @@ gpush origin main
 ```
 
 ### Using with Git Wrapper (Already covered above)
-The git wrapper setup is already covered in the [Basic Usage](#-basic-usage) section above. This is the recommended approach for seamless integration.
+The git wrapper setup is already covered in the Basic Usage section above. This is the recommended approach for seamless integration.
 
 ### Using in CI/CD
 ```bash
 # In your CI pipeline
-git-guard push origin main || {
+xg push origin main || {
   echo "Push blocked due to unwanted files"
   exit 1
 }
 ```
 
----
-
-## 🛠️ Troubleshooting
+## Troubleshooting
 
 ### Common Issues
 
@@ -356,13 +269,13 @@ git-guard push origin main || {
 ```bash
 Error: Not in a git repository. Please run this command from a git repository.
 ```
-**Solution:** Navigate to a git repository directory.
+Solution: Navigate to a git repository directory.
 
-#### "git-guard: command not found"
+#### "xg: command not found"
 ```bash
-bash: git-guard: command not found
+bash: xg: command not found
 ```
-**Solution:** 
+Solution:
 1. Make sure `$HOME/.cargo/bin` is in your PATH
 2. Add to your shell config: `export PATH="$HOME/.cargo/bin:$PATH"`
 
@@ -370,29 +283,24 @@ bash: git-guard: command not found
 ```bash
 Error: Failed to execute git push: No such file or directory
 ```
-**Solution:** Make sure git is installed and accessible in your PATH.
+Solution: Make sure git is installed and accessible in your PATH.
 
 #### "Git push failed with exit code"
 ```bash
 Error: Git push failed with exit code: 1
 ```
-**Solution:** This is a normal git error (e.g., authentication issues, conflicts). Check your git configuration and remote setup.
+Solution: This is a normal git error (e.g., authentication issues, conflicts). Check your git configuration and remote setup.
 
 ### Getting Help
 ```bash
 # Show all commands
-git-guard --help
-
-# Show push command help
-git-guard push --help
+xg --help
 
 # Check version
-git-guard --version
+xg --version
 ```
 
----
-
-## 🔒 Security Best Practices
+## Security Best Practices
 
 ### 1. Use SSH Instead of HTTPS
 ```bash
@@ -420,9 +328,7 @@ git rm --cached .env
 git commit -m "Remove .env from tracking"
 ```
 
----
-
-## 📝 Examples
+## Examples
 
 ### Development Workflow
 ```bash
@@ -435,8 +341,8 @@ git add src/feature.rs
 # 3. Commit
 git commit -m "Add new feature"
 
-# 4. Push safely with git-guard
-git-guard push origin main
+# 4. Push safely with xg
+xg push origin main
 ```
 
 ### Testing Blocked Files
@@ -448,7 +354,7 @@ echo "secret=password123" > .env
 git add .env
 
 # Try to push (will be blocked)
-git-guard push origin main
+xg push origin main
 
 # Remove the file
 git rm --cached .env
@@ -462,29 +368,24 @@ git add .gitignore
 git commit -m "Add .env to gitignore"
 
 # Now push should work
-git-guard push origin main
+xg push origin main
 ```
 
 ### Force Push (Use with Caution)
 ```bash
 # Force push after rebase
-git-guard push origin main --force
+xg push origin main --force
 ```
 
----
+## Tips and Tricks
 
-## 🎯 Tips and Tricks
-
-### 1. Always Use git-guard
-Make it a habit to use `git-guard push` instead of `git push` to catch mistakes early.
+### 1. Always Use xg
+Make it a habit to use `xg push` instead of `git push` to catch mistakes early.
 
 ### 2. Check Before Committing
 ```bash
 # See what's staged
 git status
-
-# See what git-guard would check
-git-guard push origin main
 ```
 
 ### 3. Use in Teams
@@ -493,15 +394,7 @@ Share this tool with your team to prevent accidental commits of sensitive files.
 ### 4. Customize for Your Project
 Consider adding project-specific patterns to the blocked files list.
 
----
+## Related Documentation
 
-## 📚 Related Documentation
-
-- [README.md](../README.md) - Project overview and quick start
-- [LICENSE.md](../LICENSE.md) - MIT License
-
----
-
-## 🤝 Contributing
-
-Found a bug or want to add features? Check out the [Contributing Guide](../CONTRIBUTING.md) or open an issue on GitHub.
+- README.md - Project overview and quick start
+- LICENSE.md - MIT License

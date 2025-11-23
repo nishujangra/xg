@@ -1,29 +1,27 @@
-# 🔧 xg Installation Guide
+# xg Installation Guide
 
-## 📋 System Requirements
+## System Requirements
 
 ### Minimum Requirements
-- **Operating System**: Linux, macOS, or Windows
-- **Rust**: 1.70.0 or higher
-- **Git**: 2.0.0 or higher
-- **Memory**: 50MB available RAM
-- **Disk Space**: 10MB for installation
+- Operating System: Linux, macOS, or Windows
+- Rust: 1.70.0 or higher
+- Git: 2.0.0 or higher
+- Memory: 50MB available RAM
+- Disk Space: 10MB for installation
 
 ### Recommended
-- **Rust**: Latest stable version
-- **Git**: Latest version
-- **Terminal**: A modern terminal with color support
+- Rust: Latest stable version
+- Git: Latest version
+- Terminal: A modern terminal with color support
 
----
-
-## 🚀 Installation Methods
+## Installation Methods
 
 ### Method 1: Manual Installation (Recommended)
 
 ```bash
 # Clone the repository
-git clone https://github.com/nishujangra/git-guard.git
-cd git-guard
+git clone https://github.com/nishujangra/xg
+cd xg
 
 # Build and install xg
 cargo install --path .
@@ -33,8 +31,8 @@ cargo install --path .
 
 ```bash
 # Clone the repository
-git clone https://github.com/nishujangra/git-guard.git
-cd git-guard
+git clone https://github.com/nishujangra/xg
+cd xg
 
 # Build in debug mode
 cargo build
@@ -44,9 +42,7 @@ cargo run -- --version
 # Or run the binary: ./target/debug/xg --version
 ```
 
----
-
-## 🔍 Verifying Installation
+## Verifying Installation
 
 ### Check Installation
 ```bash
@@ -64,15 +60,10 @@ xg 0.1.0
 xg --help
 
 # Test project creation
-xg init --help
-
-# Test git wrapper (if in a git repo)
-xg status
+xg create-go-app --help
 ```
 
----
-
-## 🌍 Platform-Specific Instructions
+## Platform-Specific Instructions
 
 ### Linux
 
@@ -83,8 +74,8 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 source ~/.cargo/env
 
 # Install xg
-git clone https://github.com/nishujangra/git-guard.git
-cd git-guard
+git clone https://github.com/nishujangra/xg
+cd xg
 cargo install --path .
 ```
 
@@ -94,9 +85,9 @@ cargo install --path .
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 source ~/.cargo/env
 
-# Install git-guard
-git clone https://github.com/nishujangra/git-guard.git
-cd git-guard
+# Install xg
+git clone https://github.com/nishujangra/xg
+cd xg
 cargo install --path .
 ```
 
@@ -105,9 +96,9 @@ cargo install --path .
 # Install Rust (if not installed)
 sudo pacman -S rust
 
-# Install git-guard
-git clone https://github.com/nishujangra/git-guard.git
-cd git-guard
+# Install xg
+git clone https://github.com/nishujangra/xg
+cd xg
 cargo install --path .
 ```
 
@@ -118,9 +109,9 @@ cargo install --path .
 # Install Rust (if not installed)
 brew install rust
 
-# Install git-guard
-git clone https://github.com/nishujangra/git-guard.git
-cd git-guard
+# Install xg
+git clone https://github.com/nishujangra/xg
+cd xg
 cargo install --path .
 ```
 
@@ -130,9 +121,9 @@ cargo install --path .
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 source ~/.cargo/env
 
-# Install git-guard
-git clone https://github.com/nishujangra/git-guard.git
-cd git-guard
+# Install xg
+git clone https://github.com/nishujangra/xg
+cd xg
 cargo install --path .
 ```
 
@@ -148,20 +139,17 @@ cargo install --path .
 # Install Rust (if not installed)
 # Download from https://rustup.rs/
 
-# Install git-guard
-git clone https://github.com/nishujangra/git-guard.git
-cd git-guard
+# Install xg
+git clone https://github.com/nishujangra/xg
+cd xg
 cargo install --path .
 ```
 
----
-
-## 🔧 PATH Configuration
+## PATH Configuration
 
 ### Manual PATH Setup
 
-You may need to add `$HOME/.cargo/bin` to your PATH if git-guard is not found after installation.
-
+You may need to add `$HOME/.cargo/bin` to your PATH if xg is not found after installation.
 
 #### Bash/Zsh
 Add to `~/.bashrc` or `~/.zshrc`:
@@ -186,9 +174,7 @@ Add to your PowerShell profile:
 $env:PATH += ";$env:USERPROFILE\.cargo\bin"
 ```
 
----
-
-## 🧪 Testing the Installation
+## Testing the Installation
 
 ### Basic Test
 ```bash
@@ -202,20 +188,20 @@ xg --help
 ### Functionality Test
 ```bash
 # Test project creation
-xg init -lang rust -name "test-project"
+xg create-go-app --project "test-project" --rest-framework gin
 cd test-project
 ls -la  # Should show generated files
 
-# Test git wrapper in the new project
-xg status
-xg add .
-xg commit -m "Initial commit"
+# Test git wrapper (if in a git repo)
+git status
+git add .
+git commit -m "Initial commit"
 ```
 
 ### Integration Test
 ```bash
 # In a real git repository
-xg push origin main
+git push origin main
 
 # Should either:
 # - Push successfully (if clean)
@@ -223,38 +209,36 @@ xg push origin main
 # - Show HTTPS warning (if using HTTPS)
 ```
 
----
-
-## 🛠️ Troubleshooting
+## Troubleshooting
 
 ### Common Issues
 
 #### "cargo: command not found"
-**Problem**: Rust is not installed or not in PATH.
+Problem: Rust is not installed or not in PATH.
 
-**Solution**:
+Solution:
 ```bash
 # Install Rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 source ~/.cargo/env
 ```
 
-#### "git-guard: command not found"
-**Problem**: git-guard is installed but not in PATH.
+#### "xg: command not found"
+Problem: xg is installed but not in PATH.
 
-**Solution**:
+Solution:
 ```bash
 # Add cargo bin to PATH
 export PATH="$HOME/.cargo/bin:$PATH"
 
 # Verify installation
-ls -la ~/.cargo/bin/git-guard
+ls -la ~/.cargo/bin/xg
 ```
 
 #### "Permission denied" during installation
-**Problem**: Insufficient permissions to write to cargo directory.
+Problem: Insufficient permissions to write to cargo directory.
 
-**Solution**:
+Solution:
 ```bash
 # Fix cargo directory permissions
 sudo chown -R $USER:$USER ~/.cargo
@@ -264,9 +248,9 @@ cargo install --path . --user
 ```
 
 #### "Failed to compile" errors
-**Problem**: Missing system dependencies or incompatible Rust version.
+Problem: Missing system dependencies or incompatible Rust version.
 
-**Solution**:
+Solution:
 ```bash
 # Update Rust
 rustup update
@@ -279,9 +263,9 @@ sudo yum groupinstall "Development Tools"
 ```
 
 #### "git: command not found"
-**Problem**: Git is not installed.
+Problem: Git is not installed.
 
-**Solution**:
+Solution:
 ```bash
 # Ubuntu/Debian
 sudo apt-get install git
@@ -309,9 +293,9 @@ cargo --version
 # Check git version
 git --version
 
-# Check git-guard installation
-which git-guard
-git-guard --version
+# Check xg installation
+which xg
+xg --version
 ```
 
 #### Debug Installation
@@ -326,14 +310,12 @@ cargo env
 ls -la ~/.cargo/bin/
 ```
 
----
-
-## 🔄 Updating git-guard
+## Updating xg
 
 ### Update from Source
 ```bash
 # Pull latest changes
-cd git-guard
+cd xg
 git pull origin main
 
 # Reinstall
@@ -343,54 +325,36 @@ cargo install --path . --force
 ### Check for Updates
 ```bash
 # Check current version
-git-guard --version
+xg --version
 
 # Check repository for updates
-cd git-guard
+cd xg
 git fetch origin
 git status
 ```
 
----
-
-## 🗑️ Uninstalling git-guard
+## Uninstalling xg
 
 ### Remove Binary
 ```bash
 # Remove the binary
-rm ~/.cargo/bin/git-guard
+rm ~/.cargo/bin/xg
 
 # Or uninstall via cargo
-cargo uninstall git-guard
+cargo uninstall xg
 ```
 
 ### Clean Up Repository
 ```bash
 # Remove local repository
-rm -rf git-guard/
+rm -rf xg/
 ```
 
----
-
-## 📚 Next Steps
+## Next Steps
 
 After installation:
 
-1. **Read the [Usage Guide](USAGE.md)** to learn how to use git-guard
-2. **Test with your repositories** to see it in action
-3. **Set up git aliases** for convenience
-4. **Share with your team** to prevent accidental commits
-
----
-
-## 🤝 Support
-
-If you encounter issues:
-
-1. **Check this troubleshooting guide** for common solutions
-2. **Search existing issues** on GitHub
-3. **Create a new issue** with detailed information:
-   - Operating system and version
-   - Rust version (`rustc --version`)
-   - Git version (`git --version`)
-   - Error messages and steps to reproduce
+1. Read the Usage Guide to learn how to use xg
+2. Test with your repositories to see it in action
+3. Set up git aliases for convenience
+4. Share with your team to prevent accidental commits
