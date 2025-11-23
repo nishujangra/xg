@@ -1,6 +1,6 @@
-pub mod init;
+pub mod create_go_app;
 
-use crate::cli::init::InitArgs;
+use crate::{cli::create_go_app::GoArgs};
 use clap::{Parser, Subcommand};
 
 #[derive(Parser, Debug)]
@@ -14,6 +14,7 @@ pub struct Cli {
 
 #[derive(Subcommand, Debug)]
 pub enum Commands {
-    /// Initialize a new project
-    Init(InitArgs),
+    /// Create a new Go application
+    #[command(name = "create-go-app")]
+    CreateGoApp(GoArgs),
 }
